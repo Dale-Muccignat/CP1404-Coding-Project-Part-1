@@ -9,4 +9,22 @@ def convert(amount, home_currency_code, location_currency_code):
     print(result[result.index('result'):])
     return
 
-convert(1, 'AUD', 'JPY')
+def get_details(country_name):
+    country_details = ""
+    currency_details = open('currency_details.txt', mode='r', encoding='utf-8')
+    #Stores file's contents for use.
+    file_contents = currency_details.read()
+    print(file_contents)
+    #TODO Count how many lines, check each line and return that line as a tuple.
+    currency_details.close()
+
+#Test code
+# convert(1, 'AUD', 'JPY')
+
+#Testing get_details
+currency_details = open('currency_details.txt', mode='r', encoding='utf-8')
+#Stores file's contents for use.
+file_contents = currency_details.read()
+print(file_contents)
+#TODO Count how many lines, check each line and return that line as a tuple.
+currency_details.close()
