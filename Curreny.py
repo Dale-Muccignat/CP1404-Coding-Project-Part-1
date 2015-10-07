@@ -8,8 +8,9 @@ def convert(amount, from_currency_code, too_currency_code):
                  "&to=" + str(too_currency_code)
     result = web_utility.load_page(url_string)
     # Print result section of the web_utility module.
+    #TODO Truncate result
     print(result[result.index("result"):])
-    return
+    return result[result.index("result"):]
 
 
 def get_details(country_name):
@@ -53,6 +54,6 @@ def get_details(country_name):
 
 
 # Test functions
-# convert(input("Amount to convert: "), input("Convert From: "), input("Convert Too: "))
+convert(input("Amount to convert: "), input("Convert From: "), input("Convert Too: "))
 print(get_details(input("Enter Country: ")))
 
