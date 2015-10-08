@@ -3,12 +3,11 @@ import web_utility
 
 
 def convert(amount, from_currency_code, too_currency_code):
-    if type(amount) != int or type(amount) != float:
-        return "Amount is not a valid number."
-    else:
+    try:
+        # Test if amount is a number, produces an error
+        float(amount)
         # Customizable url which takes into account convert paramaters
-        url_string = "https://www.google.com/finance/converter?a=" + str(amount) + "&from=" + str(from_currency_code) +\
-               "&to=" + str(too_currency_code)
+        url_string = "https://www.google.com/finance/converter?a={}&from={}&to={}".format(str(amount), from_currency_code.upper(), too_currency_code.upper())
         result = web_utility.load_page(url_string)
         # Print result section of the web_utility module.
         truncated_string = result[result.index("result"):]
@@ -16,7 +15,8 @@ def convert(amount, from_currency_code, too_currency_code):
         truncated_string = truncated_string.split(">")
         truncated_string = truncated_string[2].split(" ")
         return truncated_string[0]
-    #TODO FIX
+    except:
+        return -1
 
 def get_details(country_name):
     # Variables to be used later in code
@@ -24,12 +24,15 @@ def get_details(country_name):
     # Format is like: CountryName,Code,Symbol
     currency_details = open("currency_details.txt", mode="r", encoding="UTF-8")
 
-    # FOR LOOP TEST
     for line in currency_details.readlines():
+        # Split line into three parts.
         parts = line.strip().split(",")
         if parts[0] == str(country_name.title()):
+            # Save to tuple
             country_details = tuple(parts)
     currency_details.close()
+
+    # If country_details is still empty return and error
     if country_details == ():
         return "Country doesn't exist."
     else:
