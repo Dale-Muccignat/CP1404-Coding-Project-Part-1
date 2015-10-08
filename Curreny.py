@@ -9,51 +9,29 @@ def convert(amount, from_currency_code, too_currency_code):
     result = web_utility.load_page(url_string)
     # Print result section of the web_utility module.
     #TODO Truncate result
-    print(result[result.index("result"):])
-    return result[result.index("result"):]
+    truncated_string = result[result.index("result"):]
+    truncated_string = truncated_string.split()
+    return truncated_string
 
 
 def get_details(country_name):
     # Variables to be used later in code
-    document_end = ""
-    country_details = ""
-    line_count = 0
+    country_details = ()
     # Format is like: CountryName,Code,Symbol
-    currency_details = open("currency_details.txt", mode="r", encoding="utf-8")
+    currency_details = open("currency_details.txt", mode="r", encoding="UTF-8")
 
-    while document_end == "":
-        line = currency_details.readline()
-        # Formats the string with .title and checks if in document
-        if str(country_name.title()) in line:
-            document_end = "True"
-            currency_details.close()
-            # Had to close and open the docunment to reset the curser
-            currency_details = open("currency_details.txt", mode="r", encoding="utf-8")
-            country_details = currency_details.readlines()
-            currency_details.close()
-        elif line == "":
-            # A blank line exists at the end of the docunment which is used to stop the while loop
-            document_end = "True"
-        else:
-            # Line count to be used later to call line form a list
-            line_count += 1
-
-    if country_details == "":
-        # If country_details is still empty, means country wasn't found.
-        # print("Country does not exist.")    # Debugging
-        country_details_tuple = ()
-        return country_details_tuple
+    # FOR LOOP TEST
+    for line in currency_details.readlines():
+        parts = line.strip().split(",")
+        if parts[0] == str(country_name.title()):
+            country_details = tuple(parts)
+    currency_details.close()
+    if country_details == ():
+        return "Country doesn't exist."
     else:
-        # Turns string into a list of strings
-        parts = country_details[line_count].split(",")
-        # String into tuple
-        country_details_tuple = ([part for part in parts])
-        #TODO Remove \n from tuple
-        return country_details_tuple
-        # print(country_details_tuple)    # Debugging
-
+        return country_details
 
 # Test functions
-convert(input("Amount to convert: "), input("Convert From: "), input("Convert Too: "))
+# print(convert(input("Amount to convert: "), input("Convert From: "), input("Convert Too: ")))
 print(get_details(input("Enter Country: ")))
 
