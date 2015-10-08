@@ -23,7 +23,13 @@ class Country():
 
 
 class Details():
-    pass
+
+    def __init__(self):
+        self.locations = {}
+
+    def add(self, country_name, start_date, end_date):
+        self.locations.append(country_name)
+
 
 
 print(Country('Germany', 'EUR', '€'))

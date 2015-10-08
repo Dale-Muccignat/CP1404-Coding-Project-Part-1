@@ -39,6 +39,6 @@ def get_details(country_name):
         return country_details
 
 # Test functions
-print(convert(input("Amount to convert: "), input("Convert From: "), input("Convert Too: ")))
+# print(convert(input("Amount to convert: "), input("Convert From: "), input("Convert Too: ")))
 # print(get_details(input("Enter Country: ")))
 
