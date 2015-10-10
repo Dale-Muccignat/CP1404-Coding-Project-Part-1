@@ -1,4 +1,4 @@
-__author__ = 'Dale'
+__author__ = 'Dale Muccignat'
 import web_utility
 
 
@@ -7,16 +7,19 @@ def convert(amount, from_currency_code, too_currency_code):
         # Test if amount is a number, produces an error
         float(amount)
         # Customizable url which takes into account convert paramaters
-        url_string = "https://www.google.com/finance/converter?a={}&from={}&to={}".format(str(amount), from_currency_code.upper(), too_currency_code.upper())
+        url_string = "https://www.google.com/finance/converter?a={}&from={}&to={}".format\
+            (str(amount), from_currency_code.upper(), too_currency_code.upper())
         result = web_utility.load_page(url_string)
-        # Print result section of the web_utility module.
         truncated_string = result[result.index("result"):]
         # Seperates with >
         truncated_string = truncated_string.split(">")
+        # Seperates with " "
         truncated_string = truncated_string[2].split(" ")
+        # Returns the amount only
         return truncated_string[0]
     except:
         return -1
+
 
 def get_details(country_name):
     # Variables to be used later in code
