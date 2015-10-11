@@ -18,6 +18,10 @@ class Country:
         return '{} {} {}'.format(self.name, self.currency_code, self.currency_symbol)
 
     def format_amount(self, amount):
+        try:
+            float(amount)
+        except ValueError:
+            raise Error("Amount is not a number.")
         # Returns a string that begins with the country's currency symbol followed by the amount to 1 decimal place
         return self.currency_symbol + str(format(float(amount), '.1f'))
 
@@ -195,10 +199,10 @@ def main():
         print("Error: Trip starts after it ends.")
 
     # Check if amount is number
-    print("For Country()")
+    print("\nFor Country()")
     print("Check if amount is number")
     try:
-        Country().format_amount("asd")
+        Country("Australia", "AUD", "$").format_amount("asd")
     except Error as error:
         print(error)
         print("Error: amount not a number")

@@ -11,9 +11,7 @@ def convert(amount, from_currency_code, to_currency_code):
             .format(str(amount), from_currency_code.upper(), to_currency_code.upper())
         result = web_utility.load_page(url_string)
         truncated_string = result[result.index("result"):]
-        # Separates with >
         truncated_string = truncated_string.split(">")
-        # Separates with " "
         truncated_string = truncated_string[2].split(" ")
         # Returns the amount as a float, if amount is not a number, functions returns -1.
         return float(truncated_string[0])
@@ -35,6 +33,9 @@ def get_details(country_name):
             country_details = tuple(parts)
     currency_details.close()
     return country_details
+
+# print(get_details(input("Enter Country Name: ")))
+# print(convert(input("Amount: "), input("From: "), input("To: ")))
 
 def main():
     test1 = convert(1, "AUD", "AUD")
@@ -62,17 +63,17 @@ def main():
     print(format("invalid conversion", ">30") + format("1.00", ">10") + format("JPY->ABC", "^20") + str(format(test2, '<10.2f')))
     print(format("invalid conversion", ">30") + format("1.00", ">10") + format("ABC->USD", "^20") + str(format(test3, '<10.2f')))
     print(format("valid conversion", ">30") + format("10.95", ">10") + format("AUD->JPY", "^20") + str(format(test4, '<10.2f')))
-    print(format("invalid conversion reverse", ">30") + format("943.18", ">10") + format("JPY->AUD", "^20") + str(format(test5, '<10.2f')))
-    print(format("invalid conversion", ">30") + format("10.95", ">10") + format("AUD->BGN", "^20") + str(format(test6, '<10.2f')))
-    print(format("invalid conversion reverse", ">30") + format("13.62", ">10") + format("BGN->AUD", "^20") + str(format(test7, '<10.2f')))
-    print(format("invalid conversion", ">30") + format("200.15", ">10") + format("BGN->JPY", "^20") + str(format(test8, '<10.2f')))
-    print(format("invalid conversion reverse", ">30") + format("13859.49", ">10") + format("JPY->BGN", "^20") + str(format(test9, '<10.2f')))
-    print(format("invalid conversion", ">30") + format("100.00", ">10") + format("JPY->USD", "^20") + str(format(test10, '<10.2f')))
-    print(format("invalid conversion reverse", ">30") + format("0.83", ">10") + format("USD->JPY", "^20") + str(format(test11, '<10.2f')))
-    print(format("invalid conversion", ">30") + format("19.99", ">10") + format("USD->BGN", "^20") + str(format(test12, '<10.2f')))
-    print(format("invalid conversion reverse", ">30") + format("34.58", ">10") + format("BGN->USD", "^20") + str(format(test13, '<10.2f')))
-    print(format("invalid conversion", ">30") + format("19.99", ">10") + format("USD->AUD", "^20") + str(format(test14, '<10.2f')))
-    print(format("invalid conversion reverse", ">30") + format("27.80", ">10") + format("AUD->USD", "^20") + str(format(test15, '<10.2f')))
+    print(format("valid conversion reverse", ">30") + format("943.18", ">10") + format("JPY->AUD", "^20") + str(format(test5, '<10.2f')))
+    print(format("valid conversion", ">30") + format("10.95", ">10") + format("AUD->BGN", "^20") + str(format(test6, '<10.2f')))
+    print(format("valid conversion reverse", ">30") + format("13.62", ">10") + format("BGN->AUD", "^20") + str(format(test7, '<10.2f')))
+    print(format("valid conversion", ">30") + format("200.15", ">10") + format("BGN->JPY", "^20") + str(format(test8, '<10.2f')))
+    print(format("valid conversion reverse", ">30") + format("13859.49", ">10") + format("JPY->BGN", "^20") + str(format(test9, '<10.2f')))
+    print(format("valid conversion", ">30") + format("100.00", ">10") + format("JPY->USD", "^20") + str(format(test10, '<10.2f')))
+    print(format("valid conversion reverse", ">30") + format("0.83", ">10") + format("USD->JPY", "^20") + str(format(test11, '<10.2f')))
+    print(format("valid conversion", ">30") + format("19.99", ">10") + format("USD->BGN", "^20") + str(format(test12, '<10.2f')))
+    print(format("valid conversion reverse", ">30") + format("34.58", ">10") + format("BGN->USD", "^20") + str(format(test13, '<10.2f')))
+    print(format("valid conversion", ">30") + format("19.99", ">10") + format("USD->AUD", "^20") + str(format(test14, '<10.2f')))
+    print(format("valid conversion reverse", ">30") + format("27.80", ">10") + format("AUD->USD", "^20") + str(format(test15, '<10.2f')))
     print(format("invalid details Unknown", "<30") + str(test16))
     print(format("invalid details Japanese", "<30") + str(test17))
     print(format("invalid details", "<30") + str(test18))
