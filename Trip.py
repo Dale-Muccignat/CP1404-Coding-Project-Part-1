@@ -40,14 +40,23 @@ class Details:
         self.locations.append(details_tuple)
 
     def current_country(self, date_string):
+        current_country = ""
+        for item in self.locations:
+            if item[1] < date_string < item[2]:
+                current_country = item[0]
+        if current_country == "":
+            raise Error("Not currently in a recorded country.")
+        else:
+            return current_country
 
 # print(Country('Germany', 'EUR', '€'))
 # print(Country('Germany', 'EUR', '€'))
 
 details = Details()
 
-details.add("Australia", "1990/05/10", "1999/05/10")
+details.add("Germany", "1990/05/10", "1999/05/10")
 details.add("Australia", "2000/05/11", "2005/05/10")
 # details.add("Australia", "1990/05/10", "1980/05/10")
 print(details.locations)
+print(details.current_country("2015/05/10"))
 
