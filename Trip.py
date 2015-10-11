@@ -28,7 +28,18 @@ class Details:
         self.locations = []
 
     def add(self, country_name, start_date, end_date):
-        # Date string is expect to be of format YYYY/MM/DD
+        # Checking if date string is of format YYYY/MM/DD
+        # Split dates into lists
+        date_split_list = [start_date.split("/"), end_date.split("/")]
+        # Check if all characters is a digit
+        for item in date_split_list:
+            for part in item:
+                for char in part:
+                    if not char.isdigit():
+                        raise Error("Not a valid date!")
+            # Check if dates are right format
+            if len(item[0]) != 4 or len(item[1]) != 2 or len(item[2]) != 2:
+                raise Error("Not a valid date!")
         details_tuple = (country_name, start_date, end_date)
         # If trip already recorded, raise error
         if details_tuple in self.locations:
@@ -61,10 +72,10 @@ class Details:
 # print(Country('Germany', 'EUR', '€'))
 
 # details = Details()
-#
+
 # details.add("Germany", "1990/05/10", "1999/05/10")
 # details.add("Australia", "2000/05/11", "2005/05/10")
-# # details.add("Australia", "1990/05/10", "1980/05/10")
+# details.add("Australia", "1990/05/10", "1980/05/10")
 # print(details.locations)
 # print(details.current_country("2015/05/10"))
 
