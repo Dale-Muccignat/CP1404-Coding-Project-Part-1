@@ -17,7 +17,7 @@ def convert(amount, from_currency_code, too_currency_code):
         # Seperates with " "
         truncated_string = truncated_string[2].split(" ")
         # Returns the amount as a float, if amount is not a number, functions returns -1.
-        return float(truncated_string[0])
+        return format(float(truncated_string[0]), '.2f')
     except:
         return -1
 
