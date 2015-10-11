@@ -1,5 +1,5 @@
 __author__ = 'Dale Muccignat'
-
+# TODO lowercase file names
 
 class Error(Exception):
     def __init__(self, value):
@@ -54,7 +54,7 @@ class Details:
         current_country = ""
         # for each list item in locations, check if date_string is in between start and end dates.
         for item in self.locations:
-            if item[1] < date_string < item[2]:
+            if item[1] <= date_string <= item[2]:
                 current_country = item[0]
         # If current_country is still an empty strip, raise error
         if current_country == "":
@@ -67,15 +67,144 @@ class Details:
         return self.locations == []
 
 
-# Various trial print statements
-# print(Country('Germany', 'EUR', '€').format_amount(100))
-# print(Country('Germany', 'EUR', '€'))
+def main():
+    # Details class checking.
+    # Date tests:
+    # Start Year
+    print("For Details()")
+    print("Invalid start year:")
+    try:
+        Details().add("Australia", "199/05/20", "1998/05/20")
+    except Error as error:
+        print(error)
+        print("Error: too short")
+    try:
+        Details().add("Australia", "199a/05/20", "1998/05/20")
+    except Error as error:
+        print(error)
+        print("Error: not number")
+    try:
+        Details().add("Australia", "19900/05/20", "1998/05/20")
+    except Error as error:
+        print(error)
+        print("Error: too long")
+    # Start Month
+    print("\nInvalid start month:")
+    try:
+        Details().add("Australia", "1990/5/20", "1998/05/20")
+    except Error as error:
+        print(error)
+        print("Error: too short")
+    try:
+        Details().add("Australia", "1990/a5/20", "1998/05/20")
+    except Error as error:
+        print(error)
+        print("Error: not number")
+    try:
+        Details().add("Australia", "1990/075/20", "1998/05/20")
+    except Error as error:
+        print(error)
+        print("Error: too long")
+    # Start Day
+    print("\nInvalid start day:")
+    try:
+        Details().add("Australia", "1990/05/0", "1998/05/20")
+    except Error as error:
+        print(error)
+        print("Error: too short")
+    try:
+        Details().add("Australia", "1990/05/d0", "1998/05/20")
+    except Error as error:
+        print(error)
+        print("Error: not number")
+    try:
+        Details().add("Australia", "1990/75/260", "1998/05/20")
+    except Error as error:
+        print(error)
+        print("Error: too long")
+    # End Year
+    print("\nInvalid end year:")
+    try:
+        Details().add("Australia", "1990/05/20", "199/05/20")
+    except Error as error:
+        print(error)
+        print("Error: too short")
+    try:
+        Details().add("Australia", "1990/05/20", "19o8/05/20")
+    except Error as error:
+        print(error)
+        print("Error: not number")
+    try:
+        Details().add("Australia", "1990/05/20", "19918/05/20")
+    except Error as error:
+        print(error)
+        print("Error: too long")
+    # End Month
+    print("\nInvalid end month:")
+    try:
+        Details().add("Australia", "1990/05/20", "1998/5/20")
+    except Error as error:
+        print(error)
+        print("Error: too short")
+    try:
+        Details().add("Australia", "1990/05/20", "1998/k5/20")
+    except Error as error:
+        print(error)
+        print("Error: not number")
+    try:
+        Details().add("Australia", "1990/05/20", "1998/085/20")
+    except Error as error:
+        print(error)
+        print("Error: too long")
+    # End Day
+    print("\nInvalid end day:")
+    try:
+        Details().add("Australia", "1990/05/20", "1998/05/0")
+    except Error as error:
+        print(error)
+        print("Error: too short")
+    try:
+        Details().add("Australia", "1990/05/20", "1998/05/h0")
+    except Error as error:
+        print(error)
+        print("Error: not number")
+    try:
+        Details().add("Australia", "1990/75/20", "1998/05/270")
+    except Error as error:
+        print(error)
+        print("Error: too long")
 
-# details = Details()
+    # testing details.add function
+    details = Details()
+    details.add("Australia", "1990/05/20", "1998/05/20")
 
-# details.add("Germany", "1990/05/10", "1999/05/10")
-# details.add("Australia", "2000/05/11", "2005/05/10")
-# details.add("Australia", "1990/05/10", "1980/05/10")
-# print(details.locations)
-# print(details.current_country("2015/05/10"))
+    # Check if trip exists
+    print("\nTrip already exists:")
+    try:
+        details.add("Australia", "1990/05/20", "1998/05/20")
+    except Error as error:
+        print(error)
+        print("Error: Trip exists")
 
+    # Check if trip starts after it ends
+    print("\nTrip starts after it ends:")
+    try:
+        details.add("Australia", "1998/05/20", "1990/05/20")
+    except Error as error:
+        print(error)
+        print("Error: Trip starts after it ends.")
+
+    # Check if amount is number
+    print("For Country()")
+    print("Check if amount is number")
+    try:
+        Country().format_amount("asd")
+    except Error as error:
+        print(error)
+        print("Error: amount not a number")
+
+
+
+
+if __name__ == "__main__":
+    main()

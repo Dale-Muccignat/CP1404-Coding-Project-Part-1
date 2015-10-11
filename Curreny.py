@@ -82,7 +82,5 @@ def main():
 
 if __name__ == "__main__":
     main()
-# Test print statements
-# print(convert(input("Amount to convert: "), input("Convert From: "), input("Convert Too: ")))
-# print(get_details(input("Enter Country: ")))
+
 
