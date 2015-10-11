@@ -3,6 +3,7 @@ import web_utility
 
 
 def convert(amount, from_currency_code, too_currency_code):
+    #TODO Produce error converting from AUD to AUD or wrong CODE
     try:
         # Test if amount is a number, produces an error
         float(amount)
@@ -15,8 +16,8 @@ def convert(amount, from_currency_code, too_currency_code):
         truncated_string = truncated_string.split(">")
         # Seperates with " "
         truncated_string = truncated_string[2].split(" ")
-        # Returns the amount only
-        return truncated_string[0]
+        # Returns the amount as a float, if amount is not a number, functions returns -1.
+        return float(truncated_string[0])
     except:
         return -1
 
@@ -42,6 +43,6 @@ def get_details(country_name):
         return country_details
 
 # Test functions
-# print(convert(input("Amount to convert: "), input("Convert From: "), input("Convert Too: ")))
+print(convert(input("Amount to convert: "), input("Convert From: "), input("Convert Too: ")))
 # print(get_details(input("Enter Country: ")))
 
