@@ -3,18 +3,17 @@ import web_utility
 
 
 def convert(amount, from_currency_code, too_currency_code):
-    #TODO Produce error converting from AUD to AUD or wrong CODE
     try:
         # Test if amount is a number, produces an error
         float(amount)
-        # Customizable url which takes into account convert paramaters
-        url_string = "https://www.google.com/finance/converter?a={}&from={}&to={}".format\
-            (str(amount), from_currency_code.upper(), too_currency_code.upper())
+        # Customizable url which takes into account convert parameters
+        url_string = "https://www.google.com/finance/converter?a=" \
+                     "{}&from={}&to={}".format(str(amount), from_currency_code.upper(), too_currency_code.upper())
         result = web_utility.load_page(url_string)
         truncated_string = result[result.index("result"):]
-        # Seperates with >
+        # Separates with >
         truncated_string = truncated_string.split(">")
-        # Seperates with " "
+        # Separates with " "
         truncated_string = truncated_string[2].split(" ")
         # Returns the amount as a float, if amount is not a number, functions returns -1.
         return format(float(truncated_string[0]), '.2f')
@@ -42,7 +41,7 @@ def get_details(country_name):
     else:
         return country_details
 
-# Test functions
-print(convert(input("Amount to convert: "), input("Convert From: "), input("Convert Too: ")))
+# Test print statements
+# print(convert(input("Amount to convert: "), input("Convert From: "), input("Convert Too: ")))
 # print(get_details(input("Enter Country: ")))
 

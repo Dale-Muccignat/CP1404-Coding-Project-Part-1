@@ -18,10 +18,8 @@ class Country:
         return '{} {} {}'.format(self.name, self.currency_code, self.currency_symbol)
 
     def format_amount(self, amount):
-        if amount < 0:
-            raise Error("Amount can't be less than 0.")
-        formated_amount = self.currency_symbol + str(format(float(amount), '.1f'))
-        return formated_amount
+        # Returns a string that begins with the country's currency symbol followed by the amount to 1 decimal place
+        return self.currency_symbol + str(format(float(amount), '.1f'))
 
 
 class Details:
@@ -32,8 +30,10 @@ class Details:
     def add(self, country_name, start_date, end_date):
         # Date string is expect to be of format YYYY/MM/DD
         details_tuple = (country_name, start_date, end_date)
+        # If trip already recorded, raise error
         if details_tuple in self.locations:
             raise Error("Trip already recorded.")
+        # If trip starts after it finished, raise an error
         if start_date > end_date:
             raise Error("Trip can't start after it ends.")
         # Add list to location list.
@@ -41,22 +41,30 @@ class Details:
 
     def current_country(self, date_string):
         current_country = ""
+        # for each list item in locations, check if date_string is in between start and end dates.
         for item in self.locations:
             if item[1] < date_string < item[2]:
                 current_country = item[0]
+        # If current_country is still an empty strip, raise error
         if current_country == "":
             raise Error("Not currently in a recorded country.")
         else:
             return current_country
 
-# print(Country('Germany', 'EUR', '€'))
+    def is_empty(self):
+        # Returns true if list is empty
+        return self.locations == []
+
+
+# Various trial print statements
+# print(Country('Germany', 'EUR', '€').format_amount(100))
 # print(Country('Germany', 'EUR', '€'))
 
-details = Details()
-
-details.add("Germany", "1990/05/10", "1999/05/10")
-details.add("Australia", "2000/05/11", "2005/05/10")
-# details.add("Australia", "1990/05/10", "1980/05/10")
-print(details.locations)
-print(details.current_country("2015/05/10"))
+# details = Details()
+#
+# details.add("Germany", "1990/05/10", "1999/05/10")
+# details.add("Australia", "2000/05/11", "2005/05/10")
+# # details.add("Australia", "1990/05/10", "1980/05/10")
+# print(details.locations)
+# print(details.current_country("2015/05/10"))
 
